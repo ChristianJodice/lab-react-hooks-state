@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
-import App from '../src/App'
-import { sampleProducts } from './helpers'
+import { render, screen, fireEvent } from '@testing-library/react'
+import App from '../App'
+import { sampleProducts } from '../sampleProducts'
 
 test('renders shopping app', () => {
     render(<App />)
@@ -17,6 +17,6 @@ test('displays all products initially', () => {
 test('shows "No products available" when filtering removes all products', () => {
     render(<App />)
     const filterDropdown = screen.getByRole('combobox')
-    filterDropdown.value = 'Non-Existent Category'
+    fireEvent.change(filterDropdown, { target: { value: 'Non-Existent Category' } })
     expect(screen.getByText(/No products available/i)).toBeInTheDocument()
 })
